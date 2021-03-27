@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            cameraOffset.m_Offset = new Vector3(0, 0, 0);
+            cameraOffset.m_Offset = Vector3.Lerp(cameraOffset.m_Offset, new Vector3(0, 0, 0), 5 * Time.deltaTime);
         }
     }
 
