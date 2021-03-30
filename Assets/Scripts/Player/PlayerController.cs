@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
         PlayerLook();
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             currentWeapon.ShootGun();
         }
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             velocity.x = movementInput.x * SprintSpeed;
             velocity.z = movementInput.z * SprintSpeed;
 
-            if(velocity.magnitude > 0)
+            if (velocity.magnitude > 0)
             {
 
             }
@@ -117,11 +117,11 @@ public class PlayerController : MonoBehaviour
                 velocity.y = JumpHeight;
             }
         }
-        
+
 
         velocity.y += gravityValue * Time.deltaTime;
         velocity = transform.TransformDirection(velocity);
-        
+
         characterController.Move(velocity * Time.deltaTime);
     }
 

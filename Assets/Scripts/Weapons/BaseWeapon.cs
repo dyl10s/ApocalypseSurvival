@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class BaseWeapon : MonoBehaviour
 {
@@ -12,16 +13,20 @@ public class BaseWeapon : MonoBehaviour
 
     public Transform FireFrom;
     public GameObject Bullet;
+    public ParticleSystem MuzzleFlash;
     
     Vector3 fireAt = Vector3.zero;
     Camera mainCamera;
     float timeSinceShot = 0;
     AudioSource audioSouce;
+    Animator anim;
 
     void Start()
     {
         mainCamera = Camera.main;
         audioSouce = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
+        GunShot.LoadAudioData();
     }
 
     void Update()
@@ -42,7 +47,10 @@ public class BaseWeapon : MonoBehaviour
     {
         if (timeSinceShot > FireRate)
         {
+            anim.Play("Shoot");
             audioSouce.PlayOneShot(GunShot);
+            MuzzleFlash.Play();
+
             var newBullet = Instantiate(Bullet, FireFrom.position, FireFrom.rotation);
             newBullet.transform.LookAt(fireAt);
             var shootVelocity = newBullet.transform.TransformDirection(new Vector3(0, 0, 500));
