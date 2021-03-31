@@ -479,7 +479,7 @@ MonoBehaviour:
   CameraDistance: 2
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   IgnoreTag: 
   CameraRadius: 0.2
 --- !u!114 &661347996
@@ -492,6 +492,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &700231380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8768940655795078554, guid: 48107832d4b061d42bc0436a7b86da3e, type: 3}
+  m_PrefabInstance: {fileID: 378920797303812922}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993
@@ -2009,6 +2020,10 @@ PrefabInstance:
       value: -5.8315945
       objectReference: {fileID: 0}
     - target: {fileID: 8768940656437368540, guid: 48107832d4b061d42bc0436a7b86da3e, type: 3}
+      propertyPath: handRig
+      value: 
+      objectReference: {fileID: 700231380}
+    - target: {fileID: 8768940656437368540, guid: 48107832d4b061d42bc0436a7b86da3e, type: 3}
       propertyPath: JumpHeight
       value: 15
       objectReference: {fileID: 0}
@@ -2120,6 +2135,10 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1335179890}
+    - target: {fileID: 8768940656983572968, guid: 48107832d4b061d42bc0436a7b86da3e, type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8768940657113736975, guid: 48107832d4b061d42bc0436a7b86da3e, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 

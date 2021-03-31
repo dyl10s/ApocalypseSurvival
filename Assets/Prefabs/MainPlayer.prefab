@@ -2146,7 +2146,7 @@ Animator:
   m_GameObject: {fileID: 8462510818637664060}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 481e81847e40b1c46a8047eb4f359d35, type: 3}
-  m_Controller: {fileID: 9100000, guid: 226f75b0b141f5f4483aa6eb7bdf5332, type: 2}
+  m_Controller: {fileID: 22100000, guid: eaf6f22b1a6ea0f458cd881e34781b71, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2211,7 +2211,11 @@ MonoBehaviour:
       m_LegacyVelocityFilterStrength: 0
   walkingSounds: []
   runningSounds: []
+  weaponLeftGrip: {fileID: 8768940656635362807}
+  weaponRightGrip: {fileID: 8768940655816230569}
+  weaponParent: {fileID: 8768940657325660885}
   cameraOffset: {fileID: 0}
+  handRig: {fileID: 8768940655795078554}
 --- !u!114 &8768940656437368543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3177,7 +3181,7 @@ Transform:
   m_LocalPosition: {x: -0.078, y: 0.124, z: 0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8440151189944107490}
+  - {fileID: 3509710459794228198}
   - {fileID: 8768940656635362807}
   - {fileID: 8768940655816230569}
   - {fileID: 8768940656682559867}
@@ -3302,7 +3306,7 @@ Transform:
   m_Father: {fileID: 7580549968340711941}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &9118611497587662905
+--- !u!1001 &4259946765189833277
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3359,8 +3363,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6286b4752a02d134b9d7f30e6874fbad, type: 3}
---- !u!4 &8440151189944107490 stripped
+--- !u!4 &3509710459794228198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 840660280193376731, guid: 6286b4752a02d134b9d7f30e6874fbad, type: 3}
-  m_PrefabInstance: {fileID: 9118611497587662905}
+  m_PrefabInstance: {fileID: 4259946765189833277}
   m_PrefabAsset: {fileID: 0}

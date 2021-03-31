@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,12 +20,19 @@ public class PlayerController : MonoBehaviour
     public List<AudioClip> walkingSounds;
     public List<AudioClip> runningSounds;
 
+    public Transform weaponLeftGrip;
+    public Transform weaponRightGrip;
+    public Transform weaponParent;
+
     public CinemachineCameraOffset cameraOffset;
+
+    public Rig handRig; 
 
     CharacterController characterController;
 
     Camera mainCamera;
     Animator animator;
+    AnimatorOverrideController animOverrides;
     AudioSource audioSource;
     Vector3 velocity;
     bool groundedPlayer = false;
@@ -40,8 +49,14 @@ public class PlayerController : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+        animOverrides = (AnimatorOverrideController)animator.runtimeAnimatorController;
         characterController = GetComponent<CharacterController>();
-        currentWeapon = GetComponentInChildren<BaseWeapon>();
+
+        var startingGun = GetComponentInChildren<BaseWeapon>();
+        if (startingGun != null)
+        {
+            Equip(startingGun);
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +70,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
         PlayerLook();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && currentWeapon != null)
         {
             currentWeapon.ShootGun();
         }
@@ -123,6 +138,42 @@ public class PlayerController : MonoBehaviour
         velocity = transform.TransformDirection(velocity);
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    void Equip(BaseWeapon newWeapon)
+    {
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+
+        if (newWeapon == null)
+        {
+            handRig.weight = 0;
+            animator.SetLayerWeight(1, 0);
+        }
+        else
+        {
+            handRig.weight = 1;
+            animator.SetLayerWeight(1, 1);
+        }
+
+        animOverrides["Equip_None"] = newWeapon.GunLocationSetup;
+
+        currentWeapon = newWeapon;
+    }
+
+    // This is ued in the editor to setup new weapon poses
+    [ContextMenu("Save Pose To Animation")]
+    void SaveWeaponPose()
+    {
+        GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
+        recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(weaponLeftGrip.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(weaponRightGrip.gameObject, false);
+        recorder.TakeSnapshot(0);
+        recorder.SaveToClip(currentWeapon.GunLocationSetup);
+        UnityEditor.AssetDatabase.SaveAssets();
     }
 
     // Called from the animations

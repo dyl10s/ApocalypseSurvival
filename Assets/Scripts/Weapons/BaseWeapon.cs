@@ -15,6 +15,8 @@ public class BaseWeapon : MonoBehaviour
     public GameObject Bullet;
     public ParticleSystem MuzzleFlash;
     
+    public AnimationClip GunLocationSetup;
+
     Vector3 fireAt = Vector3.zero;
     Camera mainCamera;
     float timeSinceShot = 0;

@@ -66,6 +66,7 @@ MonoBehaviour:
   FireFrom: {fileID: 8130019920815343731}
   Bullet: {fileID: 94631014639656275, guid: c91ea81fb6bedd841a556f27e6c9c4c8, type: 3}
   MuzzleFlash: {fileID: 7062712223943973034}
+  GunLocationSetup: {fileID: 7400000, guid: 2b662a945bbd02f419ceac8f776c2080, type: 2}
 --- !u!95 &893692265959736942
 Animator:
   serializedVersion: 3
