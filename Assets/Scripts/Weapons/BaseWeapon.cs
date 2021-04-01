@@ -9,6 +9,9 @@ public class BaseWeapon : MonoBehaviour
     public float Damage = 1f;
     public float Range = 100f;
 
+    public bool FullAuto = false;
+    public int BulletsPerTriggerPress = 1;
+
     public AudioClip GunShot;
 
     public Transform FireFrom;
@@ -22,6 +25,9 @@ public class BaseWeapon : MonoBehaviour
     float timeSinceShot = 0;
     AudioSource audioSouce;
     Animator anim;
+    int bulletsShotSinceTriggerPressed = 0;
+
+    bool triggerDown = false;
 
     void Start()
     {
@@ -43,11 +49,16 @@ public class BaseWeapon : MonoBehaviour
         {
             fireAt = mainCamera.transform.position + mainCamera.transform.forward * Range;
         }
+
+        if (triggerDown)
+        {
+            ShootGun();
+        }
     }
 
-    public void ShootGun()
+    void ShootGun()
     {
-        if (timeSinceShot > FireRate)
+        if (timeSinceShot > FireRate && (bulletsShotSinceTriggerPressed < BulletsPerTriggerPress || FullAuto))
         {
             anim.Play("Shoot");
             audioSouce.PlayOneShot(GunShot);
@@ -58,7 +69,19 @@ public class BaseWeapon : MonoBehaviour
             var shootVelocity = newBullet.transform.TransformDirection(new Vector3(0, 0, 500));
             newBullet.GetComponent<Rigidbody>().AddForce(shootVelocity, ForceMode.VelocityChange);
 
+            bulletsShotSinceTriggerPressed += 1;
             timeSinceShot = 0;
         }
+    }
+
+    public void PullTrigger()
+    {
+        triggerDown = true;
+    }
+
+    public void ReleaseTrigger()
+    {
+        triggerDown = false;
+        bulletsShotSinceTriggerPressed = 0;
     }
 }

@@ -48,9 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ade83f8758340142bf6ba0b8c317086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireRate: 0.02
+  FireRate: 0.2
   Damage: 1
   Range: 100
+  FullAuto: 1
+  BulletsPerTriggerPress: 1
   GunShot: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
   FireFrom: {fileID: 8130019920815343731}
   Bullet: {fileID: 94631014639656275, guid: c91ea81fb6bedd841a556f27e6c9c4c8, type: 3}

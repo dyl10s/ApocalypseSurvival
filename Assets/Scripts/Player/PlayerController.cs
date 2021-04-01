@@ -69,10 +69,19 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
         PlayerLook();
 
-        if (Input.GetMouseButtonDown(0) && currentWeapon != null)
+        if (currentWeapon != null)
         {
-            currentWeapon.ShootGun();
+            if (Input.GetMouseButtonDown(0))
+            {
+                currentWeapon.PullTrigger();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                currentWeapon.ReleaseTrigger();
+            }
         }
+        
 
         if (Input.GetMouseButton(1))
         {
