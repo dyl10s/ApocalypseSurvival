@@ -53,10 +53,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         var startingGun = GetComponentInChildren<BaseWeapon>();
-        if (startingGun != null)
-        {
-            Equip(startingGun);
-        }
+        Equip(startingGun);
     }
 
     // Update is called once per frame
@@ -140,7 +137,7 @@ public class PlayerController : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
     }
 
-    void Equip(BaseWeapon newWeapon)
+    public void Equip(BaseWeapon newWeapon)
     {
         if (currentWeapon != null)
         {
@@ -151,14 +148,15 @@ public class PlayerController : MonoBehaviour
         {
             handRig.weight = 0;
             animator.SetLayerWeight(1, 0);
+            animOverrides["Equip_None"] = null;
         }
         else
         {
+            Instantiate(newWeapon.gameObject, weaponParent);
             handRig.weight = 1;
             animator.SetLayerWeight(1, 1);
+            animOverrides["Equip_None"] = newWeapon.GunLocationSetup;
         }
-
-        animOverrides["Equip_None"] = newWeapon.GunLocationSetup;
 
         currentWeapon = newWeapon;
     }
