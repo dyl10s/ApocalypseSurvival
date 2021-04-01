@@ -17,11 +17,17 @@ public class PickupItem : MonoBehaviour
     {
         GetHoveredItem();
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && lastItem)
         {
             var weapon = lastItem.gameObject.GetComponentInChildren<BaseWeapon>();
-            playerController.Equip(weapon);
-            Destroy(lastItem.gameObject);
+            if (weapon)
+            {
+                // Restore original textures
+                lastItem.Unhover();
+                playerController.Equip(weapon);
+                Destroy(lastItem.gameObject);
+                lastItem = null;
+            }
         }
     }
 

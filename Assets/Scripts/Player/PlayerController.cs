@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public Transform weaponLeftGrip;
     public Transform weaponRightGrip;
     public Transform weaponParent;
+    public Transform weaponLocation;
 
     public CinemachineCameraOffset cameraOffset;
 
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         var startingGun = GetComponentInChildren<BaseWeapon>();
+        currentWeapon = startingGun;
         Equip(startingGun);
     }
 
@@ -149,16 +151,24 @@ public class PlayerController : MonoBehaviour
             handRig.weight = 0;
             animator.SetLayerWeight(1, 0);
             animOverrides["Equip_None"] = null;
+            currentWeapon = null;
         }
         else
         {
-            Instantiate(newWeapon.gameObject, weaponParent);
+            var weaponToEquip = Instantiate(newWeapon.gameObject, weaponLocation);
+            currentWeapon = weaponToEquip.GetComponent<BaseWeapon>();
             handRig.weight = 1;
             animator.SetLayerWeight(1, 1);
-            animOverrides["Equip_None"] = newWeapon.GunLocationSetup;
+            animOverrides["Equip_None"] = currentWeapon.GunLocationSetup;
         }
 
-        currentWeapon = newWeapon;
+        
+    }
+
+    [ContextMenu("Toggle Animation")]
+    void DisableAnimation()
+    {
+        animator.enabled = !animator.enabled;
     }
 
     // This is ued in the editor to setup new weapon poses
@@ -167,6 +177,7 @@ public class PlayerController : MonoBehaviour
     {
         GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
         recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(weaponLocation.gameObject, false);
         recorder.BindComponentsOfType<Transform>(weaponLeftGrip.gameObject, false);
         recorder.BindComponentsOfType<Transform>(weaponRightGrip.gameObject, false);
         recorder.TakeSnapshot(0);
