@@ -5,13 +5,13 @@ using UnityEngine;
 public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
+    public Transform Player;
 
     Collider col;
     Animator anim;
     Rigidbody rb;
 
     Vector3 lastCollisionPoint;
-    List<Rigidbody> RbsHitLast;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,11 @@ public class BaseEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CheckForPlayer())
+        {
+            MoveToPlayer();
+        }
+
         if (Health <= 0)
         {
             Die();
@@ -35,6 +40,26 @@ public class BaseEnemyController : MonoBehaviour
                 rb.AddExplosionForce(1, lastCollisionPoint, 1, 0, ForceMode.Impulse);
             }
         }
+    }
+
+    void MoveToPlayer()
+    {
+        Quaternion rotation = Quaternion.LookRotation(Player.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 15 * Time.deltaTime);
+    }
+
+    bool CheckForPlayer()
+    {
+        RaycastHit hit;
+        if(Physics.Linecast(transform.position, Player.transform.position, out hit))
+        {
+            if(hit.transform == Player.transform)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void TakeDamage(int damage, Collision collision)

@@ -62,7 +62,7 @@ public class BaseWeapon : MonoBehaviour
         {
             anim.Play("Shoot");
             audioSouce.PlayOneShot(GunShot);
-            MuzzleFlash.Play();
+            MuzzleFlash.Emit(100);
 
             var newBullet = Instantiate(Bullet, FireFrom.position, FireFrom.rotation);
             newBullet.transform.LookAt(fireAt);
