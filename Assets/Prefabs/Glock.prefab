@@ -62,6 +62,8 @@ MonoBehaviour:
   FireRate: 0.02
   Damage: 1
   Range: 100
+  ClipSize: 7
+  ReloadTime: 1.5
   FullAuto: 0
   BulletsPerTriggerPress: 1
   GunShot: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
@@ -69,6 +71,7 @@ MonoBehaviour:
   Bullet: {fileID: 94631014639656275, guid: c91ea81fb6bedd841a556f27e6c9c4c8, type: 3}
   MuzzleFlash: {fileID: 7062712223943973034}
   GunLocationSetup: {fileID: 7400000, guid: 2b662a945bbd02f419ceac8f776c2080, type: 2}
+  ReloadAudio: {fileID: 8300000, guid: 79335ce2dcdfdaa45ad1f75f460dcdaa, type: 3}
 --- !u!95 &893692265959736942
 Animator:
   serializedVersion: 3
