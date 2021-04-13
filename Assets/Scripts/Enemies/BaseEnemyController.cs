@@ -6,7 +6,11 @@ using static UnityEngine.ParticleSystem;
 public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
-    public Transform Player;
+    public float SightDistance = 10f;
+    public float Speed = 10f;
+
+    public Transform PlayerEyes;
+    public Transform EyeLocation;
     public ParticleSystem BloodEffect;
 
     bool dieing = false;
@@ -33,40 +37,44 @@ public class BaseEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckForPlayer())
+        if (CheckForPlayer() && !dieing)
         {
             MoveToPlayer();
         }
 
-        if (Health <= 0 && !dieing)
+        if (Health <= 0)
         {
             dieing = true;
             Die();
 
             foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
             {
-                rb.AddExplosionForce(4, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
+                rb.AddExplosionForce(.2f, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
             }
         }
     }
 
     void MoveToPlayer()
     {
-        Quaternion rotation = Quaternion.LookRotation(Player.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 15 * Time.deltaTime);
+        var oldRotation = transform.rotation;
+        transform.LookAt(PlayerEyes.transform);        
+        transform.rotation = new Quaternion(oldRotation.x, transform.rotation.y, oldRotation.z, oldRotation.w);
+        rb.AddRelativeForce(new Vector3(0, 0, Speed) * Time.deltaTime, ForceMode.Impulse);
     }
 
     bool CheckForPlayer()
     {
         RaycastHit hit;
-        if(Physics.Linecast(transform.position, Player.transform.position, out hit))
+        if(Physics.Raycast(EyeLocation.position, PlayerEyes.position - EyeLocation.position, out hit, SightDistance))
         {
-            if(hit.transform == Player.transform)
+            if(hit.transform.tag == "Player")
             {
+                anim.SetBool("IsWalking", true);
                 return true;
             }
         }
 
+        anim.SetBool("IsWalking", false);
         return false;
     }
 
