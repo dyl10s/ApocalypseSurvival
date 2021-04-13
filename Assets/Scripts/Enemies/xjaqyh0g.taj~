@@ -76,10 +76,11 @@ public class BaseEnemyController : MonoBehaviour
         Health -= damage;
         lastCollisionPoint = collision.GetContact(0).point;
 
-        createdBloodEffect.transform.position = lastCollisionPoint;
-        createdBloodEffect.transform.rotation = Quaternion.FromToRotation(Vector3.up, collision.GetContact(0).normal);
 
         createdBloodEffect.Emit(10);
+
+        createdBloodEffect.transform.position = lastCollisionPoint;
+        createdBloodEffect.transform.rotation = Quaternion.FromToRotation(Vector3.up, collision.GetContact(0).normal);
     }
 
     void Die()

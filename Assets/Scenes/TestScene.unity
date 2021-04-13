@@ -2343,6 +2343,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1857825037}
+    - target: {fileID: 8320896841888778149, guid: 641f5af89401a094e9419355e8d23716, type: 3}
+      propertyPath: BloodEffect
+      value: 
+      objectReference: {fileID: 99852647688138162, guid: fa0095ba54324914ba49b0f103e32d26, type: 3}
     - target: {fileID: 8427214473816929077, guid: 641f5af89401a094e9419355e8d23716, type: 3}
       propertyPath: m_RootOrder
       value: 1
