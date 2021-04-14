@@ -7,13 +7,14 @@ public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
     public float SightDistance = 10f;
-    public float Speed = 10f;
+    public float Speed = 15f;
 
     public Transform PlayerEyes;
     public Transform EyeLocation;
     public ParticleSystem BloodEffect;
 
     bool dieing = false;
+    bool foundPlayer = false;
 
     Collider col;
     Animator anim;
@@ -31,13 +32,13 @@ public class BaseEnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         setRagdollState(false);
-        createdBloodEffect = Instantiate(BloodEffect);
+        createdBloodEffect = Instantiate(BloodEffect, transform);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CheckForPlayer() && !dieing)
+        if ((foundPlayer || CheckForPlayer()) && !dieing)
         {
             MoveToPlayer();
         }
@@ -56,9 +57,11 @@ public class BaseEnemyController : MonoBehaviour
 
     void MoveToPlayer()
     {
-        var oldRotation = transform.rotation;
-        transform.LookAt(PlayerEyes.transform);        
-        transform.rotation = new Quaternion(oldRotation.x, transform.rotation.y, oldRotation.z, oldRotation.w);
+        var lookPos = PlayerEyes.position - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100);
+
         rb.AddRelativeForce(new Vector3(0, 0, Speed) * Time.deltaTime, ForceMode.Impulse);
     }
 
@@ -70,6 +73,7 @@ public class BaseEnemyController : MonoBehaviour
             if(hit.transform.tag == "Player")
             {
                 anim.SetBool("IsWalking", true);
+                foundPlayer = true;
                 return true;
             }
         }
