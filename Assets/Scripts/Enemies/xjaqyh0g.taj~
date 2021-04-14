@@ -6,15 +6,10 @@ using static UnityEngine.ParticleSystem;
 public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
-    public float SightDistance = 10f;
-    public float Speed = 15f;
-
-    public Transform PlayerEyes;
-    public Transform EyeLocation;
+    public Transform Player;
     public ParticleSystem BloodEffect;
 
     bool dieing = false;
-    bool foundPlayer = false;
 
     Collider col;
     Animator anim;
@@ -32,53 +27,46 @@ public class BaseEnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         setRagdollState(false);
-        createdBloodEffect = Instantiate(BloodEffect, transform);
+        createdBloodEffect = Instantiate(BloodEffect);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((foundPlayer || CheckForPlayer()) && !dieing)
+        if (CheckForPlayer())
         {
             MoveToPlayer();
         }
 
-        if (Health <= 0)
+        if (Health <= 0 && !dieing)
         {
             dieing = true;
             Die();
 
             foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
             {
-                rb.AddExplosionForce(.2f, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
+                rb.AddExplosionForce(4, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
             }
         }
     }
 
     void MoveToPlayer()
     {
-        var lookPos = PlayerEyes.position - transform.position;
-        lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100);
-
-        rb.AddRelativeForce(new Vector3(0, 0, Speed) * Time.deltaTime, ForceMode.Impulse);
+        Quaternion rotation = Quaternion.LookRotation(Player.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 15 * Time.deltaTime);
     }
 
     bool CheckForPlayer()
     {
         RaycastHit hit;
-        if(Physics.Raycast(EyeLocation.position, PlayerEyes.position - EyeLocation.position, out hit, SightDistance))
+        if(Physics.Linecast(transform.position, Player.transform.position, out hit))
         {
-            if(hit.transform.tag == "Player")
+            if(hit.transform == Player.transform)
             {
-                anim.SetBool("IsWalking", true);
-                foundPlayer = true;
                 return true;
             }
         }
 
-        anim.SetBool("IsWalking", false);
         return false;
     }
 
@@ -88,10 +76,11 @@ public class BaseEnemyController : MonoBehaviour
         Health -= damage;
         lastCollisionPoint = collision.GetContact(0).point;
 
-        createdBloodEffect.transform.position = lastCollisionPoint;
-        createdBloodEffect.transform.rotation = Quaternion.FromToRotation(Vector3.up, collision.GetContact(0).normal);
 
         createdBloodEffect.Emit(10);
+
+        createdBloodEffect.transform.position = lastCollisionPoint;
+        createdBloodEffect.transform.rotation = Quaternion.FromToRotation(Vector3.up, collision.GetContact(0).normal);
     }
 
     void Die()
