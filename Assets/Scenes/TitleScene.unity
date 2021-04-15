@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 142287987}
   - component: {fileID: 142287986}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: GrayFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,11 +149,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142287984}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 559.2, y: 211.4, z: 86.940475}
+  m_LocalPosition: {x: 83.42502, y: 6.0147552, z: -0.65992737}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 467542515}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &142287986
 ParticleSystemRenderer:
@@ -5060,6 +5060,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &467542514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467542515}
+  m_Layer: 0
+  m_Name: Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &467542515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467542514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 475.775, y: 205.38524, z: 87.6004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 142287985}
+  - {fileID: 904902943}
+  - {fileID: 1765664301}
+  - {fileID: 1157778206}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &489588707
 GameObject:
   m_ObjectHideFlags: 0
@@ -5478,7 +5512,7 @@ GameObject:
   - component: {fileID: 904902945}
   - component: {fileID: 904902944}
   m_Layer: 0
-  m_Name: Particle System (1)
+  m_Name: OrangeFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5492,11 +5526,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904902942}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 649, y: 239.7, z: 86.9}
+  m_LocalPosition: {x: 173.225, y: 34.31476, z: -0.7004013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 467542515}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &904902944
 ParticleSystemRenderer:
@@ -10282,7 +10316,7 @@ GameObject:
   - component: {fileID: 1157778208}
   - component: {fileID: 1157778207}
   m_Layer: 0
-  m_Name: Particle System (3)
+  m_Name: SofterRedFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10296,11 +10330,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157778205}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 626.7, y: 197.7, z: 86.940475}
+  m_LocalPosition: {x: 150.92502, y: -7.6852417, z: -0.65992737}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 467542515}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &1157778207
 ParticleSystemRenderer:
@@ -15958,7 +15992,7 @@ GameObject:
   - component: {fileID: 1765664303}
   - component: {fileID: 1765664302}
   m_Layer: 0
-  m_Name: Particle System (2)
+  m_Name: BigRedFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15972,11 +16006,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765664300}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 596.1, y: 243.9, z: 86.9}
+  m_LocalPosition: {x: 120.32498, y: 38.514755, z: -0.7004013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 467542515}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &1765664302
 ParticleSystemRenderer:
