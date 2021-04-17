@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
     BaseWeapon currentWeapon;
 
+    /** UI */
+    public int health = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +94,18 @@ public class PlayerController : MonoBehaviour
         {
             cameraOffset.m_Offset = Vector3.Lerp(cameraOffset.m_Offset, new Vector3(0, 0, 0), 5 * Time.deltaTime);
         }
+
+        // Just testing damage to UI Health bar
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            HealthBar health = GameObject.FindGameObjectWithTag("Health").GetComponent<HealthBar>();
+            health.SendDamage(5);
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 
     void PlayerLook()

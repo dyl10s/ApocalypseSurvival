@@ -34,7 +34,7 @@ public class BaseWeapon : MonoBehaviour
 
     int bulletsShotSinceTriggerPressed = 0;
 
-    int bulletsLeft = 10;
+    public int bulletsLeft = 10;
     bool reloading = false;
     float reloadingTime = 0f;
 
