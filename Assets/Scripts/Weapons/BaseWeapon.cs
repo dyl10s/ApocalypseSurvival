@@ -69,10 +69,21 @@ public class BaseWeapon : MonoBehaviour
             ShootGun();
         }
 
+        if(Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < ClipSize)
+        {
+            StartReload();
+        }
+
         if (reloading)
         {
             Reload();
         }
+    }
+
+    void StartReload()
+    {
+        reloading = true;
+        reloadingTime = 0f;
     }
 
     void ShootGun()
@@ -98,8 +109,7 @@ public class BaseWeapon : MonoBehaviour
             {
                 if(!reloading)
                 {
-                    reloading = true;
-                    reloadingTime = 0f;
+                    StartReload();
                 }
             }
         }
