@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
+using TMPro;
 
 public class BaseWeapon : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class BaseWeapon : MonoBehaviour
     AudioSource audioSouce;
     Animator anim;
     Image reloadAnimation;
+    TMP_Text uiAmmoCount;
 
     int bulletsShotSinceTriggerPressed = 0;
 
@@ -47,6 +49,7 @@ public class BaseWeapon : MonoBehaviour
 
         mainCamera = Camera.main;
         audioSouce = GetComponent<AudioSource>();
+        uiAmmoCount = GameObject.Find("AmmoCounter").GetComponent<TMP_Text>();
         anim = GetComponent<Animator>();
         GunShot.LoadAudioData();
     }
@@ -78,6 +81,7 @@ public class BaseWeapon : MonoBehaviour
         {
             Reload();
         }
+        uiAmmoCount.text = string.Concat("Ammo: ", bulletsLeft.ToString());
     }
 
     void StartReload()

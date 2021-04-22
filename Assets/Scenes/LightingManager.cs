@@ -15,7 +15,7 @@ public class LightingManager: MonoBehaviour
     [SerializeField] private LightingPreset Preset;
 
     //variables
-    [SerializeField, Range(0, 24)] private float TimeOfDay;
+    [SerializeField, Range(0, 144)] private float TimeOfDay;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +32,12 @@ public class LightingManager: MonoBehaviour
         {
             //(Replace with a reference to the game time)
             TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 24; //Modulus to ensure always between 0-24
-            UpdateLighting(TimeOfDay / 24f);
+            TimeOfDay %= 144; //Modulus to ensure always between 0-24
+            UpdateLighting(TimeOfDay / 144f);
         }
         else
         {
-            UpdateLighting(TimeOfDay / 24f);
+            UpdateLighting(TimeOfDay / 144f);
         }
     }
     private void UpdateLighting(float timePercent)
