@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float TurnSpeed = 15;
     public float JumpHeight = 5f;
     public float gravityValue = -9.81f;
+    
+    public int Health = 100;
 
     public Transform CameraLookAt;
 
@@ -36,6 +39,9 @@ public class PlayerController : MonoBehaviour
     AnimatorOverrideController animOverrides;
     AudioSource audioSource;
     Vector3 velocity;
+    Collider col;
+    TMP_Text uiHealth;
+
     bool groundedPlayer = false;
 
     BaseWeapon currentWeapon;
@@ -52,6 +58,9 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         animOverrides = (AnimatorOverrideController)animator.runtimeAnimatorController;
         characterController = GetComponent<CharacterController>();
+        
+        col = GetComponent<Collider>();
+        uiHealth = GameObject.Find("HealthText").GetComponent<TMP_Text>();
 
         var startingGun = GetComponentInChildren<BaseWeapon>();
         currentWeapon = startingGun;
@@ -64,6 +73,11 @@ public class PlayerController : MonoBehaviour
         if (!groundedPlayer)
         {
             groundedPlayer = characterController.isGrounded;
+        }
+
+        if(Health <= 0)
+        {
+            //do something
         }
 
         PlayerMovement();
@@ -91,6 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             cameraOffset.m_Offset = Vector3.Lerp(cameraOffset.m_Offset, new Vector3(0, 0, 0), 5 * Time.deltaTime);
         }
+        uiHealth.text = string.Concat("Health: ", Health, "%");
     }
 
     void PlayerLook()
@@ -209,4 +224,16 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    //copied from the BulletController
+    void OnCollisionEnter(Collision collision)
+    {
+        //if there's a collision with "this" collider, and that collision is with gameObject.tag enemy?
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Health -= 8;
+        }
+    }
 }
+
+  
