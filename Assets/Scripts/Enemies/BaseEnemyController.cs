@@ -7,11 +7,15 @@ public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
     public float SightDistance = 10f;
+    public float AttackDistance = 1f;
+
     public float Speed = 15f;
 
     public Transform PlayerEyes;
     public Transform EyeLocation;
     public ParticleSystem BloodEffect;
+
+    public Collider AttackCollider;
 
     bool dieing = false;
     bool foundPlayer = false;
@@ -31,6 +35,8 @@ public class BaseEnemyController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
+        AttackCollider.enabled = false;
+
         setRagdollState(false);
         createdBloodEffect = Instantiate(BloodEffect, transform);
     }
@@ -43,6 +49,8 @@ public class BaseEnemyController : MonoBehaviour
             MoveToPlayer();
         }
 
+        AttackPlayer();
+
         if (Health <= 0)
         {
             dieing = true;
@@ -51,6 +59,21 @@ public class BaseEnemyController : MonoBehaviour
             foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
             {
                 rb.AddExplosionForce(.2f, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
+            }
+        }
+    }
+
+    void AttackPlayer()
+    {
+        if(anim.GetBool("IsAttacking") == false)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(EyeLocation.position, PlayerEyes.position - EyeLocation.position, out hit, AttackDistance))
+            {
+                if (hit.transform.tag == "Player")
+                {
+                    anim.SetBool("IsAttacking", true);
+                }
             }
         }
     }
@@ -99,6 +122,21 @@ public class BaseEnemyController : MonoBehaviour
         anim.enabled = false;
         setRagdollState(true);
         Destroy(this.gameObject, 15);
+    }
+
+    void StartAttack()
+    {
+        AttackCollider.enabled = true;
+    }
+
+    void EndAttack()
+    {
+        AttackCollider.enabled = false;
+    }
+
+    void AttackOver()
+    {
+        anim.SetBool("IsAttacking", false);
     }
 
     // For ragdoll when dead

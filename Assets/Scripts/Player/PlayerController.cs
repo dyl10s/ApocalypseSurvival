@@ -226,11 +226,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //copied from the BulletController
-    void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        //if there's a collision with "this" collider, and that collision is with gameObject.tag enemy?
-        if (collision.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "AttackCollider")
         {
             Health -= 8;
         }
