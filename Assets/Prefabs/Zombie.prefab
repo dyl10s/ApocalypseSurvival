@@ -2271,8 +2271,7 @@ MonoBehaviour:
   Health: 10
   SightDistance: 10
   AttackDistance: 1
-  Speed: 15
-  PlayerEyes: {fileID: 0}
+  Speed: 1.5
   EyeLocation: {fileID: 4399055861974082597}
   BloodEffect: {fileID: 99852647688138162, guid: fa0095ba54324914ba49b0f103e32d26, type: 3}
   AttackCollider: {fileID: 5053153511390288952}
