@@ -7,9 +7,9 @@ public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
     public float SightDistance = 10f;
-    public float AttackDistance = 1f;
+    public float AttackDistance = 1.5f;
 
-    public float Speed = 15f;
+    public float Speed = 1f;
 
     Transform PlayerEyes;
     public Transform EyeLocation;
@@ -86,8 +86,7 @@ public class BaseEnemyController : MonoBehaviour
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100);
-
-        rb.AddRelativeForce(new Vector3(0, 0, Speed) * Time.deltaTime, ForceMode.Impulse);
+        transform.position += transform.forward * Time.deltaTime * Speed;
     }
 
     bool CheckForPlayer()

@@ -601,6 +601,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8320896841888778149, guid: 641f5af89401a094e9419355e8d23716, type: 3}
+      propertyPath: Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320896841888778149, guid: 641f5af89401a094e9419355e8d23716, type: 3}
+      propertyPath: AttackDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8427214473816929077, guid: 641f5af89401a094e9419355e8d23716, type: 3}
       propertyPath: m_RootOrder
       value: 1
