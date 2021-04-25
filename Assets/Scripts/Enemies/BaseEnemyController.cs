@@ -7,11 +7,15 @@ public class BaseEnemyController : MonoBehaviour
 {
     public int Health = 10;
     public float SightDistance = 10f;
-    public float Speed = 15f;
+    public float AttackDistance = 1.5f;
 
-    public Transform PlayerEyes;
+    public float Speed = 1f;
+
+    Transform PlayerEyes;
     public Transform EyeLocation;
     public ParticleSystem BloodEffect;
+
+    public Collider AttackCollider;
 
     bool dieing = false;
     bool foundPlayer = false;
@@ -31,6 +35,10 @@ public class BaseEnemyController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
+        PlayerEyes = GameObject.Find("CameraTarget").transform;
+
+        AttackCollider.enabled = false;
+
         setRagdollState(false);
         createdBloodEffect = Instantiate(BloodEffect, transform);
     }
@@ -38,9 +46,17 @@ public class BaseEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((foundPlayer || CheckForPlayer()) && !dieing)
+        if (!AttackPlayer())
         {
-            MoveToPlayer();
+            if ((foundPlayer || CheckForPlayer()) && !dieing)
+            {
+                RotateToPlayer();
+                MoveToPlayer();
+            }
+        }
+        else
+        {
+            RotateToPlayer();
         }
 
         if (Health <= 0)
@@ -50,19 +66,44 @@ public class BaseEnemyController : MonoBehaviour
 
             foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
             {
+                rb.mass = 1;
                 rb.AddExplosionForce(.2f, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
             }
         }
     }
 
-    void MoveToPlayer()
+    bool AttackPlayer()
+    {
+        if(anim.GetBool("IsAttacking") == false)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(EyeLocation.position, PlayerEyes.position - EyeLocation.position, out hit, AttackDistance))
+            {
+                if (hit.transform.tag == "Player")
+                {
+                    anim.SetBool("IsAttacking", true);
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void RotateToPlayer()
     {
         var lookPos = PlayerEyes.position - transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100);
+    }
 
-        rb.AddRelativeForce(new Vector3(0, 0, Speed) * Time.deltaTime, ForceMode.Impulse);
+    void MoveToPlayer()
+    {
+        transform.position += transform.forward * Time.deltaTime * Speed;
     }
 
     bool CheckForPlayer()
@@ -99,6 +140,21 @@ public class BaseEnemyController : MonoBehaviour
         anim.enabled = false;
         setRagdollState(true);
         Destroy(this.gameObject, 15);
+    }
+
+    void StartAttack()
+    {
+        AttackCollider.enabled = true;
+    }
+
+    void EndAttack()
+    {
+        AttackCollider.enabled = false;
+    }
+
+    void AttackOver()
+    {
+        anim.SetBool("IsAttacking", false);
     }
 
     // For ragdoll when dead
