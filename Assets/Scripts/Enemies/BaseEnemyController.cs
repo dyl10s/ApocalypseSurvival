@@ -11,7 +11,7 @@ public class BaseEnemyController : MonoBehaviour
 
     public float Speed = 15f;
 
-    public Transform PlayerEyes;
+    Transform PlayerEyes;
     public Transform EyeLocation;
     public ParticleSystem BloodEffect;
 
@@ -34,6 +34,8 @@ public class BaseEnemyController : MonoBehaviour
         col = GetComponent<Collider>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        PlayerEyes = GameObject.Find("CameraTarget").transform;
 
         AttackCollider.enabled = false;
 
