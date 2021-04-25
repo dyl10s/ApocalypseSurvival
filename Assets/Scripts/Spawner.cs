@@ -71,7 +71,7 @@ public class Spawner : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(new Vector3(xLoc, yLoc, zLoc), Vector3.down, out hit, 100f))
         {
-            yLoc = hit.transform.position.y + .2f;
+            yLoc = hit.point.y + .5f;
 
             // No spawning on top of already spawned entities
             if(hit.transform.name == EntityToSpawn.transform.name)
@@ -81,7 +81,7 @@ public class Spawner : MonoBehaviour
         }
         else if(Physics.Raycast(new Vector3(xLoc, yLoc, zLoc), Vector3.up, out hit, 100f))
         {
-            yLoc = hit.transform.position.y + .2f;
+            yLoc = hit.point.y + .5f;
 
             // No spawning on top of already spawned entities
             if (hit.transform.name == EntityToSpawn.transform.name)
