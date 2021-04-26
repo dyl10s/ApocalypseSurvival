@@ -19,7 +19,27 @@ public class LightingManager: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (DirectionalLight != null)
+            return;
+
+        //Search for lighting tab sun
+        if (RenderSettings.sun != null)
+        {
+            DirectionalLight = RenderSettings.sun;
+        }
+        //Search scene for light that fits criteria (directional)
+        else
+        {
+            Light[] lights = GameObject.FindObjectsOfType<Light>();
+            foreach (Light light in lights)
+            {
+                if (light.type == LightType.Directional)
+                {
+                    DirectionalLight = light;
+                    return;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
