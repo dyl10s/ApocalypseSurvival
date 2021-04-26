@@ -56,7 +56,7 @@ public class BaseEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!AttackPlayer())
+        if (!dieing && !AttackPlayer())
         {
             if ((foundPlayer || CheckForPlayer()) && !dieing)
             {
