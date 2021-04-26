@@ -46,12 +46,18 @@ public class BaseEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((foundPlayer || CheckForPlayer()) && !dieing)
+        if (!AttackPlayer())
         {
-            MoveToPlayer();
+            if ((foundPlayer || CheckForPlayer()) && !dieing)
+            {
+                RotateToPlayer();
+                MoveToPlayer();
+            }
         }
-
-        AttackPlayer();
+        else
+        {
+            RotateToPlayer();
+        }
 
         if (Health <= 0)
         {
@@ -60,12 +66,13 @@ public class BaseEnemyController : MonoBehaviour
 
             foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
             {
+                rb.mass = 1;
                 rb.AddExplosionForce(.2f, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
             }
         }
     }
 
-    void AttackPlayer()
+    bool AttackPlayer()
     {
         if(anim.GetBool("IsAttacking") == false)
         {
@@ -77,15 +84,25 @@ public class BaseEnemyController : MonoBehaviour
                     anim.SetBool("IsAttacking", true);
                 }
             }
+            else
+            {
+                return false;
+            }
         }
+
+        return true;
     }
 
-    void MoveToPlayer()
+    void RotateToPlayer()
     {
         var lookPos = PlayerEyes.position - transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100);
+    }
+
+    void MoveToPlayer()
+    {
         transform.position += transform.forward * Time.deltaTime * Speed;
     }
 

@@ -681,7 +681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 601290056766740703}
-  - component: {fileID: 5053153511390288952}
+  - component: {fileID: 2679189772873520511}
   m_Layer: 0
   m_Name: AttackCollider
   m_TagString: AttackCollider
@@ -697,14 +697,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3219545110638637613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.296, y: 1.27, z: 0.812}
+  m_LocalPosition: {x: 0, y: 1.27, z: 0.812}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8427214473816929077}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5053153511390288952
-SphereCollider:
+--- !u!136 &2679189772873520511
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -713,9 +713,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.39121157
+  m_Height: 1.1664486
+  m_Direction: 2
+  m_Center: {x: -0.042030632, y: 0, z: -0.29824537}
 --- !u!1 &3324498001134418974
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,7 +2216,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9203293059365939599}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2270,8 +2271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 10
   SightDistance: 10
-  AttackDistance: 1
+  AttackDistance: 1.5
   Speed: 1.5
   EyeLocation: {fileID: 4399055861974082597}
   BloodEffect: {fileID: 99852647688138162, guid: fa0095ba54324914ba49b0f103e32d26, type: 3}
-  AttackCollider: {fileID: 5053153511390288952}
+  AttackCollider: {fileID: 2679189772873520511}
