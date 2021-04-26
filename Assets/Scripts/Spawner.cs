@@ -62,6 +62,7 @@ public class Spawner : MonoBehaviour
     // Returns a boolean stating if it spawned successfully
     bool Spawn()
     {
+        
         // Select a random location
         var xLoc = Random.Range(transform.position.x - (SpawnRadius / 2), transform.position.x + (SpawnRadius / 2));
         var zLoc = Random.Range(transform.position.z - (SpawnRadius / 2), transform.position.z + (SpawnRadius / 2));
