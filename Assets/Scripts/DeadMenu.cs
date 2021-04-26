@@ -15,7 +15,7 @@ public class DeadMenu : MonoBehaviour
         //if we ever change the name of the "main" loading point for the game this is
         // where we change it, there's other ways to load scenes as well by creating
         //a que of scenes, then incrementing by one if we want to have other scenes
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("MainScene");
         Debug.Log("loading....");
     }
 

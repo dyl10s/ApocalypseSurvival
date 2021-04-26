@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.SceneManagement;
@@ -78,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         if(Health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("DeadScene");
         }
 
         PlayerMovement();
@@ -190,6 +192,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
+#if UNITY_EDITOR
     [ContextMenu("Toggle Animation")]
     void DisableAnimation()
     {
@@ -209,6 +212,7 @@ public class PlayerController : MonoBehaviour
         recorder.SaveToClip(currentWeapon.GunLocationSetup);
         UnityEditor.AssetDatabase.SaveAssets();
     }
+#endif
 
     // Called from the animations
     void Footstep(float isRunning)
