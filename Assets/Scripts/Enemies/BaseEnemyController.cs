@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
+using TMPro;
+using System.Threading;
 
 public class BaseEnemyController : MonoBehaviour
 {
@@ -10,11 +12,12 @@ public class BaseEnemyController : MonoBehaviour
     public float AttackDistance = 1.5f;
 
     public float Speed = 1f;
+    public static int KillScore = 0;
 
     Transform PlayerEyes;
     public Transform EyeLocation;
     public ParticleSystem BloodEffect;
-
+    public int firstDieCall = 0;
     public Collider AttackCollider;
 
     bool dieing = false;
@@ -28,6 +31,9 @@ public class BaseEnemyController : MonoBehaviour
 
     Vector3 lastCollisionPoint;
 
+
+
+    GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,9 +44,13 @@ public class BaseEnemyController : MonoBehaviour
         PlayerEyes = GameObject.Find("CameraTarget").transform;
 
         AttackCollider.enabled = false;
-
+        
         setRagdollState(false);
         createdBloodEffect = Instantiate(BloodEffect, transform);
+
+        
+
+        Player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -70,6 +80,7 @@ public class BaseEnemyController : MonoBehaviour
                 rb.AddExplosionForce(.2f, lastCollisionPoint, 1, .5f, ForceMode.Impulse);
             }
         }
+        
     }
 
     bool AttackPlayer()
@@ -137,9 +148,15 @@ public class BaseEnemyController : MonoBehaviour
 
     void Die()
     {
+        if (firstDieCall == 0)
+        {
+            Player.SendMessage("incrementScore", SendMessageOptions.DontRequireReceiver);
+            firstDieCall++;
+        }
         anim.enabled = false;
-        setRagdollState(true);
+        setRagdollState(true);        
         Destroy(this.gameObject, 15);
+
     }
 
     void StartAttack()
@@ -176,4 +193,6 @@ public class BaseEnemyController : MonoBehaviour
         rb.isKinematic = false;
         col.enabled = !state;
     }
+
+
 }

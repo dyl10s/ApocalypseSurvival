@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float gravityValue = -9.81f;
     
     public int Health = 100;
+    public int killScore = 0;
 
     public Transform CameraLookAt;
 
@@ -43,12 +44,11 @@ public class PlayerController : MonoBehaviour
     AudioSource audioSource;
     Vector3 velocity;
     Collider col;
-    TMP_Text uiHealth;
-
     bool groundedPlayer = false;
 
     BaseWeapon currentWeapon;
 
+    TMP_Text Score;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,11 +63,13 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         
         col = GetComponent<Collider>();
-        uiHealth = GameObject.Find("HealthText").GetComponent<TMP_Text>();
+        
 
         var startingGun = GetComponentInChildren<BaseWeapon>();
         currentWeapon = startingGun;
         Equip(startingGun);
+
+        Score = GameObject.Find("Score").GetComponent<TMP_Text>();
     }
 
     // Update is called once per frame
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour
         {
             cameraOffset.m_Offset = Vector3.Lerp(cameraOffset.m_Offset, new Vector3(0, 0, 0), 5 * Time.deltaTime);
         }
-        uiHealth.text = string.Concat("Health: ", Health, "%");
+        Score.text = string.Concat("Score: ", killScore);
     }
 
     void PlayerLook()
@@ -236,6 +238,11 @@ public class PlayerController : MonoBehaviour
         {
             Health -= 8;
         }
+    }
+
+    public void incrementScore()
+    {
+        killScore++;
     }
 }
 
