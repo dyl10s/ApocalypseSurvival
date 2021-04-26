@@ -66,7 +66,10 @@ public class BaseEnemyController : MonoBehaviour
         }
         else
         {
-            RotateToPlayer();
+            if (!dieing)
+            {
+                RotateToPlayer();
+            }
         }
 
         if (Health <= 0)
